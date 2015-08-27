@@ -5,7 +5,8 @@ var fs = require('fs');
 
 var currentImage = $("#currentImage"),
 	previous = $("#previous"),
-	next = $("#next");
+	next = $("#next"),
+	directoryStats = $("#directoryStats");
 
 var imageFiles = [];
 
@@ -31,6 +32,10 @@ var setImage = function(index) {
 	// Hide show previous/next if there are no more/less files.
 	next.toggle(!(index + 1 === imageFiles.length));
 	previous.toggle(!(index === 0));
+
+	// set the stats text
+	var statsText = (index + 1) + ' / ' + imageFiles.length;
+	directoryStats.text(statsText);
 };
 
 var loadDir = function(dir) {
