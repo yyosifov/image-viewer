@@ -1,5 +1,5 @@
-# atom-image-viewer
-Cross-Platform Image Viewer based on Atom
+# image-viewer
+Cross-Platform Image Viewer based on Electron
 
 # Preview
 
