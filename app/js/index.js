@@ -17,6 +17,11 @@ closeEl.addEventListener('click', function () {
     ipc.send('close-main-window');
 });
 */
+
+ipc.on('on-file-open', function(fileName) {
+	alert('opened ' + fileName);
+});
+
 var selectMonth = function(id) {
 	
 };
@@ -75,3 +80,58 @@ $('.list-group-item').click(function() {
 	var id = $(this).data('id');
 	selectMonth(id);
 });
+
+// Add Menu
+var remote = require('remote');
+var Menu = remote.require('menu');
+
+var dialog = remote.require('dialog');
+
+var template = [
+	{
+		label: 'File',
+		submenu: [
+			{
+				label: 'Open',
+				accelerator: 'CmdOrCtrl+O',
+				click: function() {
+					dialog.showOpenDialog({
+							properties: [
+								'openFile'
+							],
+							filters: [
+								{
+									name: 'Images',
+									extensions: ['jpg', 'png', 'gif']
+								}
+							]
+						},
+						function(fileName) {
+							if(fileName) {
+								alert('file opened: ' + fileName);
+							}
+						});
+				}
+			},
+			{
+				label: 'Make a copy',
+				accelerator: 'CmdOrCtrl+S'
+			},
+			{
+				label: 'Delete'
+			}
+		]
+	},
+	{
+		label: 'Help',
+		submenu: [
+			{
+				label: 'About'
+			}
+		]
+	}
+];
+
+var menu = Menu.buildFromTemplate(template);
+
+Menu.setApplicationMenu(menu);

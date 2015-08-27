@@ -21,3 +21,4 @@ app.on('ready', function() {
 
     mainWindow.loadUrl('file://' + __dirname + '/app/index.html');
 });
+
