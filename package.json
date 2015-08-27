@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "electron-prebuilt": "^0.31.0"
+    "electron-prebuilt": "^0.31.0",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {},
   "scripts": {

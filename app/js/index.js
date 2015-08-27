@@ -1,137 +1,92 @@
 'use strict';
 
-var ipc = require('ipc');
 var fs = require('fs');
+var path = require('path');
+var _ = require('lodash');
+var remote = require('remote');
+var dialog = remote.require('dialog');
 
-var currentImage = $("#currentImage"),
-	previous = $("#previous"),
-	next = $("#next"),
-	directoryStats = $("#directoryStats");
+var fileSystem = require('./js/file-system');
+var constants = require('./js/constants');
 
+// jquery selectors
+var $currentImage = $('#currentImage'),
+	$previous = $('#previous'),
+	$next = $('#next'),
+	$directoryStats = $('#directoryStats'),
+	$openFile = $('#open-file');
+
+// the list of all retrieved files
 var imageFiles = [];
 
-/*
-var closeEl = document.querySelector('.close');
-closeEl.addEventListener('click', function () {
-	console.log('clicked close el.');
-    ipc.send('close-main-window');
-});
-*/
-
-ipc.on('on-file-open', function(fileName) {
-	alert('opened ' + fileName);
-});
-
-var selectMonth = function(id) {
-	
-};
-
-var isImage = function(file) {
-	return true;
-};
-
-var setImage = function(index) {
-	currentImage.data('currentIndex', index);
-	currentImage.attr('src', imageFiles[index]);
+// Shows an image on the page.
+var showImage = function(index) {
+	$currentImage.data('currentIndex', index);
+	$currentImage.attr('src', imageFiles[index]);
 
 	// Hide show previous/next if there are no more/less files.
-	next.toggle(!(index + 1 === imageFiles.length));
-	previous.toggle(!(index === 0));
+	$next.toggle(!(index + 1 === imageFiles.length));
+	$previous.toggle(!(index === 0));
 
 	// set the stats text
 	var statsText = (index + 1) + ' / ' + imageFiles.length;
-	directoryStats.text(statsText);
+	$directoryStats.text(statsText);
 };
 
-var loadDir = function(dir) {
-	var files = fs.readdirSync(dir);
-
-	// get only image files
-	for(var index in files) {
-		var file = dir + '\\' + files[index];
-		if(isImage(file)) {
-			imageFiles.push(file);
-		}
-	}
-
-	// bind current image.
-	setImage(0);
-};
-loadDir("C:\\Users\\yosifov\\Desktop\\images");
-
-previous.click(function() {
-	var currentImageId = currentImage.data('currentIndex');
+$previous.click(function() {
+	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId > 0) {
-		setImage(--currentImageId);
+		showImage(--currentImageId);
 	}
 });
 
-next.click(function() {
-	var currentImageId = currentImage.data('currentIndex');
+$next.click(function() {
+	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId + 1 < imageFiles.length) {
-		setImage(++currentImageId);
+		showImage(++currentImageId);
 	}
 });
 
-$('.list-group-item').click(function() {
-	$('.list-group-item').removeClass('active');
-	$(this).addClass('active');
+var onFileOpen = function(fileName) {
+	$openFile.hide(); // a file is selected already.
 
-	var id = $(this).data('id');
-	selectMonth(id);
-});
+	fileName = fileName + ''; // convert to string.
+	var dirName = path.dirname(fileName);
+	imageFiles = fileSystem.getDirectoryImageFiles(dirName);
 
-// Add Menu
-var remote = require('remote');
-var Menu = remote.require('menu');
+	var selectedImageIndex = imageFiles.indexOf(fileName);
+	
+	showImage(selectedImageIndex);
+};
 
-var dialog = remote.require('dialog');
+// Initialize the app
+var initialize = function() {
+	var appMenu = require('./js/app-menu'); 
+	appMenu.initialize({
+		onFileOpen: onFileOpen
+	});
 
-var template = [
-	{
-		label: 'File',
-		submenu: [
-			{
-				label: 'Open',
-				accelerator: 'CmdOrCtrl+O',
-				click: function() {
-					dialog.showOpenDialog({
-							properties: [
-								'openFile'
-							],
-							filters: [
-								{
-									name: 'Images',
-									extensions: ['jpg', 'png', 'gif']
-								}
-							]
-						},
-						function(fileName) {
-							if(fileName) {
-								alert('file opened: ' + fileName);
-							}
-						});
+	// no files selected
+	$openFile.show();
+
+	$openFile.click(function() {
+		// TODO: Refactor this... code duplication
+		dialog.showOpenDialog({
+			properties: [
+				'openFile'
+			],
+			filters: [
+				{
+					name: 'Images',
+					extensions: constants.SupportedImageExtensions	
 				}
-			},
-			{
-				label: 'Make a copy',
-				accelerator: 'CmdOrCtrl+S'
-			},
-			{
-				label: 'Delete'
+			]
+		},
+		function(fileName) {
+			if(fileName && onFileOpen) {
+				onFileOpen(fileName);
 			}
-		]
-	},
-	{
-		label: 'Help',
-		submenu: [
-			{
-				label: 'About'
-			}
-		]
-	}
-];
-
-var menu = Menu.buildFromTemplate(template);
-
-Menu.setApplicationMenu(menu);
+		});
+	});
+};
+initialize();
