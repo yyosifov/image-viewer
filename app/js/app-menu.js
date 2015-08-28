@@ -37,6 +37,21 @@ module.exports = {
 						}
 					},
 					{
+						label: 'Open Directory',
+						click: function() {
+							dialog.showOpenDialog({
+									properties: [
+										'openDirectory'
+									]
+								},
+								function(dirName) {
+									if(dirName && self.options.onDirOpen) {
+										self.options.onDirOpen(dirName);
+									}
+								});
+						}
+					},
+					{
 						label: 'Make a copy',
 						accelerator: 'CmdOrCtrl+S'
 					},

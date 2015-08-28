@@ -21,6 +21,8 @@ var imageFiles = [];
 
 // Shows an image on the page.
 var showImage = function(index) {
+	$openFile.hide(); // a file is selected already.
+
 	$currentImage.data('currentIndex', index);
 	$currentImage.attr('src', imageFiles[index]);
 
@@ -47,23 +49,39 @@ $next.click(function() {
 	}
 });
 
-var onFileOpen = function(fileName) {
-	$openFile.hide(); // a file is selected already.
-
-	fileName = fileName + ''; // convert to string.
-	var dirName = path.dirname(fileName);
-	imageFiles = fileSystem.getDirectoryImageFiles(dirName);
+var _loadDir = function(dir, fileName) {
+	imageFiles = fileSystem.getDirectoryImageFiles(dir);
 
 	var selectedImageIndex = imageFiles.indexOf(fileName);
-	
-	showImage(selectedImageIndex);
+	if(selectedImageIndex === -1) {
+		selectedImageIndex = 0;
+	}
+
+	if(selectedImageIndex < imageFiles.length) {
+		showImage(selectedImageIndex);	
+	}
+	else {
+		alert('No image files found in this directory.');
+	}
+}
+
+var onFileOpen = function(fileName) {
+	fileName = fileName + ''; // convert to string.
+	var dirName = path.dirname(fileName);
+
+	_loadDir(dirName, fileName);
+};
+
+var onDirOpen = function(dir) {
+	_loadDir(dir + ''); // convert to string
 };
 
 // Initialize the app
 var initialize = function() {
 	var appMenu = require('./js/app-menu'); 
 	appMenu.initialize({
-		onFileOpen: onFileOpen
+		onFileOpen: onFileOpen,
+		onDirOpen: onDirOpen
 	});
 
 	// no files selected
