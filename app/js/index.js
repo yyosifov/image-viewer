@@ -17,7 +17,8 @@ var $currentImage = $('#currentImage'),
 	$openFile = $('#open-file');
 
 // the list of all retrieved files
-var imageFiles = [];
+var imageFiles = [],
+	currentImageFile = '';
 
 // Shows an image on the page.
 var showImage = function(index) {
@@ -25,6 +26,7 @@ var showImage = function(index) {
 
 	$currentImage.data('currentIndex', index);
 	$currentImage.attr('src', imageFiles[index]);
+	currentImageFile = imageFiles[index];
 
 	// Hide show previous/next if there are no more/less files.
 	$next.toggle(!(index + 1 === imageFiles.length));
@@ -76,12 +78,17 @@ var onDirOpen = function(dir) {
 	_loadDir(dir + ''); // convert to string
 };
 
+var getCurrentFile = function() {
+	return currentImageFile;
+};
+
 // Initialize the app
 var initialize = function() {
 	var appMenu = require('./js/app-menu'); 
 	appMenu.initialize({
 		onFileOpen: onFileOpen,
-		onDirOpen: onDirOpen
+		onDirOpen: onDirOpen,
+		getCurrentFile: getCurrentFile
 	});
 
 	// no files selected

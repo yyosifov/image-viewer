@@ -1,10 +1,36 @@
 'use strict';
 
+var path = require('path');
 var constants = require('./constants');
 var remote = require('remote');
 var Menu = remote.require('menu');
 var dialog = remote.require('dialog');
 var ipc = require('ipc'); // used for close-window and other commands
+
+//http://stackoverflow.com/questions/11293857/fastest-way-to-copy-file-in-node-js
+function copyFile(source, target, cb) {
+  var cbCalled = false;
+
+  var rd = fs.createReadStream(source);
+  rd.on("error", function(err) {
+    done(err);
+  });
+  var wr = fs.createWriteStream(target);
+  wr.on("error", function(err) {
+    done(err);
+  });
+  wr.on("close", function(ex) {
+    done();
+  });
+  rd.pipe(wr);
+
+  function done(err) {
+    if (!cbCalled) {
+      cb(err);
+      cbCalled = true;
+    }
+  }
+}
 
 module.exports = {
 	getMenuTemplate: function() {
@@ -53,7 +79,27 @@ module.exports = {
 					},
 					{
 						label: 'Make a copy',
-						accelerator: 'CmdOrCtrl+S'
+						accelerator: 'CmdOrCtrl+S',
+						click: function() {
+							var currentFile = self.options.getCurrentFile();
+							var selectedFileName = path.basename(currentFile);
+							var ext = (path.extname(currentFile) + '').slice(1);
+							dialog.showSaveDialog({
+								title: 'Save as...',
+								defaultPath: currentFile,
+								filters: [{
+									name: selectedFileName,
+									extensions: [ ext ]
+								}]
+							}, function(fileName) {								
+							    if (fileName === undefined) return;
+							    copyFile(currentFile, fileName, function(err) {
+									if (err) {
+										dialog.showErrorBox("File Save Error", err.message);
+							     	}
+							    });
+							});
+						}
 					},
 					{
 						label: 'Delete'
