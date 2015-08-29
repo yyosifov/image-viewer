@@ -14,15 +14,30 @@ var $currentImage = $('#currentImage'),
 	$previous = $('#previous'),
 	$next = $('#next'),
 	$directoryStats = $('#directoryStats'),
-	$openFile = $('#open-file');
+	$openFile = $('#open-file'),
+	$controlPanel = $('#control-panel');
 
 // the list of all retrieved files
 var imageFiles = [],
-	currentImageFile = '';
+	currentImageFile = '',
+	currentDir = '';
+
+var toggleButtons = function(hasSelectedImage) {
+	// disable buttons?
+	if(hasSelectedImage) {
+		$openFile.hide();
+		$currentImage.show();
+		$controlPanel.show();
+	} else {
+		$openFile.show();
+		$currentImage.hide();
+		$controlPanel.hide();
+	}
+};
 
 // Shows an image on the page.
 var showImage = function(index) {
-	$openFile.hide(); // a file is selected already.
+	toggleButtons(true);
 
 	$currentImage.data('currentIndex', index);
 	$currentImage.attr('src', imageFiles[index]);
@@ -52,6 +67,7 @@ $next.click(function() {
 });
 
 var _loadDir = function(dir, fileName) {
+	currentDir = dir;
 	imageFiles = fileSystem.getDirectoryImageFiles(dir);
 
 	var selectedImageIndex = imageFiles.indexOf(fileName);
@@ -78,6 +94,21 @@ var onDirOpen = function(dir) {
 	_loadDir(dir + ''); // convert to string
 };
 
+var onFileDelete = function() {
+	// file has been deleted, show previous or next...
+	var index = imageFiles.indexOf(currentImageFile);
+	if(index > -1) {
+		imageFiles.splice(index, 1);
+	}
+	if(index === imageFiles.length) index--;
+	if(index < 0) {
+		// no more images in this directory - it's empty...
+		toggleButtons(false);
+	} else {
+		showImage(index);
+	}
+};
+
 var getCurrentFile = function() {
 	return currentImageFile;
 };
@@ -88,11 +119,12 @@ var initialize = function() {
 	appMenu.initialize({
 		onFileOpen: onFileOpen,
 		onDirOpen: onDirOpen,
+		onFileDelete: onFileDelete,
 		getCurrentFile: getCurrentFile
 	});
 
 	// no files selected
-	$openFile.show();
+	toggleButtons(false);
 
 	$openFile.click(function() {
 		// TODO: Refactor this... code duplication

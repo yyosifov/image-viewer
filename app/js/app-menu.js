@@ -95,14 +95,25 @@ module.exports = {
 							    if (fileName === undefined) return;
 							    copyFile(currentFile, fileName, function(err) {
 									if (err) {
-										dialog.showErrorBox("File Save Error", err.message);
+										return dialog.showErrorBox("File Save Error", err.message);
 							     	}
 							    });
 							});
 						}
 					},
 					{
-						label: 'Delete'
+						label: 'Delete',
+						click: function() {
+							var currentFile = self.options.getCurrentFile();
+
+							fs.unlink(currentFile, function(err) {
+								if(err) {
+									return dialog.showErrorBox("File Delete Error", err.message);
+								}
+
+								self.options.onFileDelete();
+							});
+						}
 					},
 					{
 						label: 'Quit',
