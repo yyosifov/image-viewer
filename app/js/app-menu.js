@@ -106,12 +106,24 @@ module.exports = {
 						click: function() {
 							var currentFile = self.options.getCurrentFile();
 
-							fs.unlink(currentFile, function(err) {
-								if(err) {
-									return dialog.showErrorBox("File Delete Error", err.message);
-								}
+							dialog.showMessageBox({
+								type: 'info',
+								buttons: [
+									'Yes',
+									'No'
+								],
+								title: 'Confirm delete',
+								message: 'Are you sure you want to delete file "' + currentFile + '"?'
+							}, function(buttonIndex) {
+								if(buttonIndex === 1) return;
 
-								self.options.onFileDelete();
+								fs.unlink(currentFile, function(err) {
+									if(err) {
+										return dialog.showErrorBox("File Delete Error", err.message);
+									}
+
+									self.options.onFileDelete();
+								});
 							});
 						}
 					},
