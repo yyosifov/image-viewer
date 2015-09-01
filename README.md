@@ -10,7 +10,9 @@ Cross-Platform Image Viewer based on Electron. Easy view a directory of images -
 
 # Features
 
-- Browse all Image files from a directory
+- Open a File and browse all Image Files from the same directory
+- Open a Directory and browse all Image Files from the same directory
+- Navigate fast through the images via Left/Right keyboard buttons.
 
 # How to run
 
