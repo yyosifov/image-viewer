@@ -52,19 +52,23 @@ var showImage = function(index) {
 	$directoryStats.text(statsText);
 };
 
-$previous.click(function() {
+var onPreviousClick = function() {
 	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId > 0) {
 		showImage(--currentImageId);
 	}
-});
+};
 
-$next.click(function() {
+$previous.click(onPreviousClick);
+
+var onNextClick = function() {
 	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId + 1 < imageFiles.length) {
 		showImage(++currentImageId);
 	}
-});
+};
+
+$next.click(onNextClick);
 
 var _loadDir = function(dir, fileName) {
 	currentDir = dir;
@@ -144,6 +148,14 @@ var initialize = function() {
 				onFileOpen(fileName);
 			}
 		});
+	});
+
+	// handle navigation from left/right clicks
+	$(window).keydown(function(ev) {
+		
+
+		ev.keyCode === constants.LeftKey && onPreviousClick();
+		ev.keyCode === constants.RightKey && onNextClick();
 	});
 };
 initialize();
