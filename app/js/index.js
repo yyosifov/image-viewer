@@ -15,7 +15,9 @@ var $currentImage = $('#currentImage'),
 	$next = $('#next'),
 	$directoryStats = $('#directoryStats'),
 	$openFile = $('#open-file'),
-	$controlPanel = $('#control-panel');
+	$controlPanel = $('#control-panel'),
+	$rotateLeft = $('#rotate-left'),
+	$rotateRight = $('#rotate-right');
 
 // the list of all retrieved files
 var imageFiles = [],
@@ -39,6 +41,7 @@ var toggleButtons = function(hasSelectedImage) {
 var showImage = function(index) {
 	toggleButtons(true);
 
+	setRotateDegrees(0);
 	$currentImage.data('currentIndex', index);
 	$currentImage.attr('src', imageFiles[index]);
 	currentImageFile = imageFiles[index];
@@ -117,6 +120,35 @@ var getCurrentFile = function() {
 	return currentImageFile;
 };
 
+var setRotateDegrees = function(deg) {
+	$currentImage.css({
+		 '-webkit-transform' : 'rotate('+deg+'deg)',
+	     '-moz-transform' : 'rotate('+deg+'deg)',  
+	      '-ms-transform' : 'rotate('+deg+'deg)',  
+	       '-o-transform' : 'rotate('+deg+'deg)',  
+	          'transform' : 'rotate('+deg+'deg)',  
+	               'zoom' : 1
+	});
+
+	$currentImage.data('rotateDegree', deg);
+};
+
+var onRotate = function(rotationDegrees) {
+	// get current degree and rotationDegrees
+	var deg = $currentImage.data('rotateDegree') || 0;
+	deg -= rotationDegrees;
+
+	setRotateDegrees(deg);
+};
+
+$rotateLeft.click(function() {
+	onRotate(-90);
+});
+
+$rotateRight.click(function() {
+	onRotate(90);
+});
+
 // Initialize the app
 var initialize = function() {
 	var appMenu = require('./js/app-menu'); 
@@ -152,8 +184,6 @@ var initialize = function() {
 
 	// handle navigation from left/right clicks
 	$(window).keydown(function(ev) {
-		
-
 		ev.keyCode === constants.LeftKey && onPreviousClick();
 		ev.keyCode === constants.RightKey && onNextClick();
 	});
