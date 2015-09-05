@@ -11,12 +11,17 @@ ipc.on('close-main-window', function () {
     app.quit();
 });
 
+ipc.on('image-changed', function(sender, fileName) {
+	//console.log('on image-changed  with ' + JSON.stringify(arguments));
+	mainWindow.setTitle(fileName);
+});
+
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
         //frame: false,
-        resizable: false,
-        height: 600,
-        width: 800
+        resizable: true,
+        height: 400,
+        width: 600
     });
 
     mainWindow.loadUrl('file://' + __dirname + '/app/index.html');

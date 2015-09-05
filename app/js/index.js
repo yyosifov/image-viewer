@@ -5,6 +5,7 @@ var path = require('path');
 var _ = require('lodash');
 var remote = require('remote');
 var dialog = remote.require('dialog');
+var ipc = require('ipc');
 
 var fileSystem = require('./js/file-system');
 var constants = require('./js/constants');
@@ -53,6 +54,8 @@ var showImage = function(index) {
 	// set the stats text
 	var statsText = (index + 1) + ' / ' + imageFiles.length;
 	$directoryStats.text(statsText);
+
+	ipc.send('image-changed', currentImageFile);
 };
 
 var onPreviousClick = function() {

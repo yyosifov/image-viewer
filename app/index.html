@@ -6,32 +6,33 @@
     <title>Image Viewer</title>
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	
+	<link rel="stylesheet" href="style/main.css">
 </head>
 <body>
 
 <div class="container-fluid">
-	<div class="row">
+	<div class="row img-row">
 		<div class="col-md-1">
 		</div>
-		<div class="col-md-10">
-		<!-- class="text-center">-->
-			<div style="width: 400px; height: 400px;margin-left: auto; margin-right: auto;">
-				<img id="currentImage" class="img-thumbnail center-block" style="width: 100%; " />
+		<div class="col-md-10 height100">
+			<div class="img-div">
+				<img id="currentImage" class="img-thumb center" />
 
-				<button id="open-file" style="position: relative; top: 50%; left: 50%; margin: -60px -60px;" type="button" class="btn btn-secondary-outline btn-lg">Select a file...</button>
+				<button id="open-file" style="position: relative; left: 35%; top: 40%;" type="button" class="btn btn-secondary-outline btn-lg">Open</button>
 			</div>
 		</div>
-	</div>
-	<div class="row" style="margin-top: 50px;" id="control-panel">
-		<div class="col-md-5">
+		<div class="col-md-1">
 		</div>
-		<div>
-			<button type="button" class="btn btn-primary" id="rotate-left"><i class="fa fa-undo fa-2x"></i></button>
-			<button type="button" class="btn btn-success" id="previous"><i class="fa fa-arrow-circle-left fa-3x"></i></button>
-			<label style="margin-left: 5px; margin-right: 5px;" id="directoryStats"></label>
-			<button type="button" class="btn btn-success" id="next"><i class="fa fa-arrow-circle-right fa-3x"></i></button>
-			<button type="button" class="btn btn-primary" id="rotate-right"><i class="fa fa-repeat fa-2x"></i></button>
+	</div>
+	<div class="row" class="control-row" id="control-panel">
+		<div class="col-md-12 height100 control-buttons text-center">
+				<div>
+					<button type="button" class="btn btn-primary" id="rotate-left"><i class="fa fa-undo fa-2x"></i></button>
+					<button type="button" class="btn btn-success" id="previous"><i class="fa fa-arrow-circle-left fa-3x"></i></button>
+					<label style="margin-left: 5px; margin-right: 5px;" id="directoryStats"></label>
+					<button type="button" class="btn btn-success" id="next"><i class="fa fa-arrow-circle-right fa-3x"></i></button>
+					<button type="button" class="btn btn-primary" id="rotate-right"><i class="fa fa-repeat fa-2x"></i></button>
+				</div>
 		</div>
 	</div>
 </div>
