@@ -5,7 +5,6 @@ html, body, .container-fluid {
 }
 .img-row {
 	height: 80%;
-	background-color: black;
 	display: block;
 }
 .img-div {
@@ -16,6 +15,7 @@ html, body, .container-fluid {
 	width: 100%;
 }
 .img-thumb {
+	padding-top: 10px;
 	max-width: 100%;
 	max-height: 100%;
 	display: block;
@@ -28,12 +28,14 @@ html, body, .container-fluid {
 
 	/*position: relative;*/
 	margin: auto;
-	background-color: black;
+	padding-top: 20px;
 }
+
 .height100 {
 	height: 100%;
 	display: block;
 }
+
 .width100 {
 	width: 100%;
 }

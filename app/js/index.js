@@ -93,6 +93,16 @@ var _loadDir = function(dir, fileName) {
 	}
 }
 
+var onOpen = function(filePath) {
+	filePath = filePath + ''; // convert to string
+	var stat = fs.lstatSync(filePath);
+	if(stat.isDirectory()) {
+		onDirOpen(filePath);
+	} else {
+		onFileOpen(filePath);
+	}
+};
+
 var onFileOpen = function(fileName) {
 	fileName = fileName + ''; // convert to string.
 	var dirName = path.dirname(fileName);
@@ -156,8 +166,7 @@ $rotateRight.click(function() {
 var initialize = function() {
 	var appMenu = require('./js/app-menu'); 
 	appMenu.initialize({
-		onFileOpen: onFileOpen,
-		onDirOpen: onDirOpen,
+		onOpen: onOpen,
 		onFileDelete: onFileDelete,
 		getCurrentFile: getCurrentFile
 	});
@@ -169,7 +178,8 @@ var initialize = function() {
 		// TODO: Refactor this... code duplication
 		dialog.showOpenDialog({
 			properties: [
-				'openFile'
+				'openFile',
+				'openDirectory'
 			],
 			filters: [
 				{
@@ -179,8 +189,8 @@ var initialize = function() {
 			]
 		},
 		function(fileName) {
-			if(fileName && onFileOpen) {
-				onFileOpen(fileName);
+			if(fileName) {
+				onOpen(fileName);
 			}
 		});
 	});

@@ -41,12 +41,13 @@ module.exports = {
 				label: 'File',
 				submenu: [
 					{
-						label: 'Open File',
+						label: 'Open',
 						accelerator: 'CmdOrCtrl+O',
 						click: function() {
 							dialog.showOpenDialog({
 									properties: [
-										'openFile'
+										'openFile',
+										'openDirectory'
 									],
 									filters: [
 										{
@@ -56,23 +57,8 @@ module.exports = {
 									]
 								},
 								function(fileName) {
-									if(fileName && self.options.onFileOpen) {
-										self.options.onFileOpen(fileName);
-									}
-								});
-						}
-					},
-					{
-						label: 'Open Directory',
-						click: function() {
-							dialog.showOpenDialog({
-									properties: [
-										'openDirectory'
-									]
-								},
-								function(dirName) {
-									if(dirName && self.options.onDirOpen) {
-										self.options.onDirOpen(dirName);
+									if(fileName && self.options.onOpen) {
+										self.options.onOpen(fileName);
 									}
 								});
 						}
