@@ -16,11 +16,10 @@ Cross-Platform Image Viewer based on Electron. Easy view a directory of images -
 
 # How to run
 
-- Install electron-prebuilt package globally
+- Install the dependencies
 
-> npm install -g electron-prebuilt
+> npm install
 
-- Go to the app folder and execute
+- Run the app
 
-> electron .
-
+> npm start
