@@ -16,6 +16,8 @@ Cross-Platform Image Viewer based on Electron. Easy view a directory of images -
 
 # How to run
 
+- Clone the repo
+
 - Install the dependencies
 
 > npm install
