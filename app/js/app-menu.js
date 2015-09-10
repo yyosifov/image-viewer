@@ -115,22 +115,91 @@ module.exports = {
 					},
 					{
 						label: 'Quit',
-						accelerator: 'CmdOrCtrl+Q',
-						click: function() {
-							ipc.send('close-main-window');
-						}
-					}
+                        accelerator: 'CmdOrCtrl+Q',
+                        click: function() {
+                        	ipc.send('close-main-window');
+                        }
+                    }
 				]
 			},
 			{
-				label: 'Help',
-				submenu: [
-					{
-						label: 'About'
-					}
-				]
-			}
+			    label: 'Window',
+			    role: 'window',
+			    submenu: [
+			      {
+			        label: 'Minimize',
+			        accelerator: 'CmdOrCtrl+M',
+			        role: 'minimize'
+			      },
+			      {
+			        label: 'Close',
+			        accelerator: 'CmdOrCtrl+W',
+			        click: function() {
+                        	ipc.send('close-main-window');
+                    }
+			      },
+			    ]
+			  }
 		];
+
+		// for MacOS X
+		if (process.platform == 'darwin') {
+			  var name = 'Image Viewer';
+			  template.unshift({
+			    label: name,
+			    submenu: [
+			      {
+			        label: 'About ' + name,
+			        role: 'about',
+			        selector: 'orderFrontStandardAboutPanel:'
+			      },
+			      {
+			        type: 'separator'
+			      },
+			      {
+			        label: 'Services',
+			        role: 'services',
+			        submenu: []
+			      },
+			      {
+			        type: 'separator'
+			      },
+			      {
+			        label: 'Hide ' + name,
+			        accelerator: 'Command+H',
+			        role: 'hide'
+			      },
+			      {
+			        label: 'Hide Others',
+			        accelerator: 'Command+Shift+H',
+			        role: 'hideothers:'
+			      },
+			      {
+			        label: 'Show All',
+			        role: 'unhide:'
+			      },
+			      {
+			        type: 'separator'
+			      },
+			      {
+			        label: 'Quit',
+			        accelerator: 'Command+Q',
+			        click: function() { ipc.send('close-main-window'); }
+			      },
+			    ]
+			  });
+			  // Window menu.
+			  template[2].submenu.push(
+			    {
+			      type: 'separator'
+			    },
+			    {
+			      label: 'Bring All to Front',
+			      role: 'front'
+			    }
+			  );
+			}
+
 		return template;
 	},
 
