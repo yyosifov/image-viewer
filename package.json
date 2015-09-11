@@ -17,8 +17,8 @@
     "clean:osx": "rm -rf ./dist/osx",
     "clean:win": "rm -rf ./dist/win",
     "build": "npm run clean && npm run build:osx && npm run build:win",
-    "build:osx": "npm run clean:osx && electron-packager ./app \"Image Viewer\" --out=dist/osx --platform=darwin --arch=x64 --version=0.31.0 --icon=assets/osx/icon.icns",
-    "build:win": "npm run clean:win && electron-packager ./app \"Image Viewer\" --out=dist/win --platform=win32 --arch=ia32 --version=0.25.3",
+    "build:osx": "npm run clean:osx && electron-packager . \"Image Viewer\" --out=dist/osx --platform=darwin --arch=x64 --version=0.31.0 --icon=assets/osx/icon.icns",
+    "build:win": "npm run clean:win && electron-packager . \"Image Viewer\" --out=dist/win --platform=win32 --arch=ia32 --version=0.25.3",
     "pack": "npm run pack:osx && npm run pack:win",
     "pack:osx": "npm run build:osx && electron-builder \"dist/osx/Image Viewer-darwin-x64/Image Viewer.app\" --platform=osx --out=\"dist/osx\"  --config=packager.json",
     "pack:win": "npm run build:win && electron-builder \"dist/win/Image Viewer-win32\" --platform=win --out=\"dist/win\" --config=packager.json"
