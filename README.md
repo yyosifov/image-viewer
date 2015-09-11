@@ -14,6 +14,12 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 - Rotate an image clockwise/anti-clockwise
 - Save/Move the image to a new location
 
+# Installer
+
+Download and install the Image Viewer with simple one-click installation. Choose from the platforms below:
+
+- OSX: [Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/osx/Image%20Viewer.dmg)
+
 # How to run manually
 
 - First clone the repo
