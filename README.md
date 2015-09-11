@@ -1,22 +1,22 @@
-# image-viewer
+# Image Viewer
 
-Cross-Platform Image Viewer based on Electron. Easy view a directory of images - just open any image from the directory and navigate easily via the app.
+A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Linux. It provides an easy interface to browse a directory of images using the left and right keyboard buttons.
 
 # Preview
 
-![alt tag](http://i.imgur.com/0KY8T71.png)
-
-![alt tag](http://i.imgur.com/oBEfvA5.png)
+![alt tag](http://i.imgur.com/GjDwXWj.jpg)
 
 # Features
 
-- Open a File and browse all Image Files from the same directory
-- Open a Directory and browse all Image Files from the same directory
-- Navigate fast through the images via Left/Right keyboard buttons.
+- Open a Directory and browse it's images
+- Open an Image File and browse the images inside the same directory
+- Fast navigation through the images via Left/Right keyboard buttons
+- Rotate an image clockwise/anti-clockwise
+- Save/Move the image to a new location
 
-# How to run
+# How to run manually
 
-- Clone the repo
+- First clone the repo
 
 - Install the dependencies
 
