@@ -4,7 +4,7 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 
 # Preview
 
-![alt tag](http://i.imgur.com/GjDwXWj.jpg)
+![alt tag](http://i.imgur.com/JM0GaFJ.jpg)
 
 # Features
 
