@@ -4,7 +4,7 @@ html, body, .container-fluid {
 	background-color: black;
 }
 .img-row {
-	height: 80%;
+	height: 90%;
 	display: block;
 }
 .img-div {
@@ -22,13 +22,13 @@ html, body, .container-fluid {
 	/*debug: background-color: green;*/
 }
 .control-row {
-	height: 20%;
+	height: 10%;
 }
 .control-buttons {
 
 	/*position: relative;*/
 	margin: auto;
-	padding-top: 20px;
+	padding-top: 5px;
 }
 
 .height100 {
