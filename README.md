@@ -20,6 +20,8 @@ Download and install the Image Viewer with simple one-click installation. Choose
 
 - OSX: [Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/osx/Image%20Viewer.dmg)
 
+- Windows: [Image Viewer Setup.exe](https://github.com/yyosifov/image-viewer/raw/master/dist/win/Image%20Viewer%20Setup.exe)
+
 # How to run manually
 
 - First clone the repo
