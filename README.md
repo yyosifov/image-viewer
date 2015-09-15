@@ -12,6 +12,10 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 
 ![alt tag](http://i.imgur.com/uYsD4yy.png)
 
+- Linux:
+
+![alt tag](http://i.imgur.com/4sYJy7M.png)
+
 # Features
 
 - Open a Directory and browse it's images
