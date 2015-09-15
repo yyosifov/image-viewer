@@ -4,7 +4,12 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 
 # Preview
 
+- OS X:
+
 ![alt tag](http://i.imgur.com/JM0GaFJ.jpg)
+
+- Windows:
+![alt tag](http://i.imgur.com/uYsD4yy.png)
 
 # Features
 
@@ -18,9 +23,10 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 
 Download and install the Image Viewer with simple one-click installation. Choose from the platforms below:
 
-- OSX: [Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/osx/Image%20Viewer.dmg)
-
-- Windows: [Image Viewer Setup.exe](https://github.com/yyosifov/image-viewer/raw/master/dist/win/Image%20Viewer%20Setup.exe)
+- OS X:
+[Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/osx/Image%20Viewer.dmg)
+- Windows:
+[Image Viewer Setup.exe](https://github.com/yyosifov/image-viewer/raw/master/dist/win/Image%20Viewer%20Setup.exe)
 
 # How to run manually
 
