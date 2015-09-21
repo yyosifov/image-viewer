@@ -76,6 +76,18 @@ var onNextClick = function() {
 
 $next.click(onNextClick);
 
+// Show image in Full screen on double click
+$currentImage.dblclick(function() {
+    var docElement, request;
+
+    docElement = document.documentElement;
+    request = docElement.requestFullScreen || docElement.webkitRequestFullScreen || docElement.mozRequestFullScreen || docElement.msRequestFullScreen;
+
+    if(typeof request!="undefined" && request){
+        request.call(docElement);
+    }
+});
+
 var _loadDir = function(dir, fileName) {
 	currentDir = dir;
 	imageFiles = fileSystem.getDirectoryImageFiles(dir);
