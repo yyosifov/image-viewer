@@ -77,16 +77,24 @@ var onNextClick = function() {
 $next.click(onNextClick);
 
 // Show image in Full screen on double click
-$currentImage.dblclick(function() {
-    var docElement, request;
+var fullscreenButton = document.getElementById("currentImage");
+fullscreenButton.addEventListener("dblclick", toggleFullScreen, false);
 
-    docElement = document.documentElement;
-    request = docElement.requestFullScreen || docElement.webkitRequestFullScreen || docElement.mozRequestFullScreen || docElement.msRequestFullScreen;
-
-    if(typeof request!="undefined" && request){
-        request.call(docElement);
+function toggleFullScreen() {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) {  // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
     }
-});
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
 
 var _loadDir = function(dir, fileName) {
 	currentDir = dir;
