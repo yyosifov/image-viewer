@@ -48,8 +48,8 @@ var showImage = function(index) {
 	currentImageFile = imageFiles[index];
 
 	// Hide show previous/next if there are no more/less files.
-	$next.toggle(!(index + 1 === imageFiles.length));
-	$previous.toggle(!(index === 0));
+	// $next.toggle(!(index + 1 === imageFiles.length));
+	// $previous.toggle(!(index === 0));
 
 	// set the stats text
 	var statsText = (index + 1) + ' / ' + imageFiles.length;
@@ -62,6 +62,9 @@ var onPreviousClick = function() {
 	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId > 0) {
 		showImage(--currentImageId);
+	} else {
+		// we're at 0 -> move to the end.
+		showImage(imageFiles.length - 1);
 	}
 };
 
@@ -71,6 +74,9 @@ var onNextClick = function() {
 	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId + 1 < imageFiles.length) {
 		showImage(++currentImageId);
+	} else {
+		// we're at the end - next is the beginning
+		showImage(0);
 	}
 };
 
