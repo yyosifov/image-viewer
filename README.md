@@ -49,4 +49,4 @@ Download and install the Image Viewer with simple one-click installation. Choose
 
 The following is a list of all the people that have helped build the Image-Viewer. Thanks for your contributions!
 
-[<img alt="yyosifov" src="https://avatars1.githubusercontent.com/u/2012493?v=3&s=460" width="117">](https://github.com/yyosifov)[<img alt="akashnimare" src="https://avatars1.githubusercontent.com/u/2263909?v=3&s=460" width="117">](https://github.com/akashnimare)
+[<img alt="yyosifov" src="https://avatars1.githubusercontent.com/u/2012493?v=3&s=460" width="117">](https://github.com/yyosifov)[<img alt="akashnimare" src="https://avatars1.githubusercontent.com/u/2263909?v=3&s=460" width="117">](https://github.com/akashnimare)[<img alt="grimmer0125" src="https://avatars2.githubusercontent.com/u/5940941?v=3&s=460" width="117">](https://github.com/grimmer0125)
