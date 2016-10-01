@@ -7,11 +7,19 @@ module.exports = {
 		var files = fs.readdirSync(dir);
 
 		var fullFilePaths = _.map(files, function(fileName) {
-			return path.join(dir, fileName);
+			var newFilePath = path.join(dir, fileName);
+
+			if (process.platform === "darwin"){
+				newFilePath = encodeURIComponent(newFilePath).replace(/%2F/g, "/");
+			} else if (process.platform === "win32"){
+				newFilePath = encodeURIComponent(newFilePath).replace(/%3A/g, ":").replace(/%5C/g, "\\");
+			}
+			
+			return newFilePath;
 		});
 
 		var imageFiles = _.filter(fullFilePaths, utilities.isSupportedImageFile);
 
 		return imageFiles;
-	}	
+	}
 };
