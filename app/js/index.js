@@ -117,7 +117,7 @@ var _loadDir = function(dir, fileName) {
 	else {
 		alert('No image files found in this directory.');
 	}
-}
+};
 
 var onOpen = function(filePath) {
 	filePath = filePath + ''; // convert to string
@@ -223,8 +223,23 @@ var initialize = function() {
 
 	// handle navigation from left/right clicks
 	$(window).keydown(function(ev) {
-		ev.keyCode === constants.LeftKey && onPreviousClick();
-		ev.keyCode === constants.RightKey && onNextClick();
+		switch(ev.keyCode) {
+			case constants.LeftKey:
+				onPreviousClick();
+				break;
+
+			case constants.RightKey:
+				onNextClick();
+				break;
+
+			case constants.UpKey:
+				onRotate(-90);
+				break;
+
+			case constants.DownKey:
+				onRotate(90);
+				break;
+		}
 	});
 };
 initialize();
