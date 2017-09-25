@@ -4,24 +4,21 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "electron-builder": "^2.0.0",
-    "electron-packager": "^5.1.0",
-    "electron-prebuilt": "^0.31.0",
+    "electron-builder": "^19.30.2",
+    "electron-packager": "^9.1.0",
+    "electron-prebuilt": "^1.4.13",
     "lodash": "^3.10.1"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    
     "clean": "rm -rf ./dist",
     "clean:osx": "rm -rf ./dist/osx",
     "clean:win": "rm -rf ./dist/win",
-
     "build": "npm run clean && npm run build:osx && npm run build:win",
     "build:osx": "npm run clean:osx && electron-packager . \"Image Viewer\" --out=dist/osx --platform=darwin --arch=x64 --version=0.31.0 --icon=assets/osx/icon.icns",
     "build:win": "npm run clean:win && electron-packager . \"Image Viewer\" --out=dist/win --platform=win32 --arch=ia32 --version=0.31.0  --icon=assets/win/icon.ico",
-
     "pack": "npm run pack:osx && npm run pack:win",
     "pack:osx": "npm run build:osx && electron-builder \"dist/osx/Image Viewer-darwin-x64/Image Viewer.app\" --platform=osx --out=\"dist/osx\"  --config=packager.json",
     "pack:win": "npm run build:win && electron-builder \"dist/win/Image Viewer-win32-ia32\" --platform=win --out=\"dist/win\" --config=packager.json"

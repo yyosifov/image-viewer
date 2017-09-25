@@ -2,10 +2,9 @@
 
 var path = require('path');
 var constants = require('./constants');
-var remote = require('remote');
-var Menu = remote.require('menu');
-var dialog = remote.require('dialog');
-var ipc = require('ipc'); // used for close-window and other commands
+const { remote, dialog, ipcRenderer } = require('electron');
+const { Menu, MenuItem } = remote;
+//var ipc = require('ipc'); // used for close-window and other commands
 
 //http://stackoverflow.com/questions/11293857/fastest-way-to-copy-file-in-node-js
 function copyFile(source, target, cb) {
@@ -44,6 +43,7 @@ module.exports = {
 						label: 'Open',
 						accelerator: 'CmdOrCtrl+O',
 						click: function() {
+							console.log('clicked open');
 							dialog.showOpenDialog({
 									properties: [
 										'openFile',
@@ -117,7 +117,7 @@ module.exports = {
 						label: 'Quit',
                         accelerator: 'CmdOrCtrl+Q',
                         click: function() {
-                        	ipc.send('close-main-window');
+                        	ipcRenderer.send('close-main-window');
                         }
                     }
 				]
@@ -135,8 +135,8 @@ module.exports = {
 			        label: 'Close',
 			        accelerator: 'CmdOrCtrl+W',
 			        click: function() {
-                        	ipc.send('close-main-window');
-                    }
+								ipcRenderer.send('close-main-window');
+              }
 			      },
 			    ]
 				},
@@ -148,7 +148,7 @@ module.exports = {
 							label: 'Enter Full Screen',
 							accelerator: 'CmdOrCtrl+F',
 							click: function() {
-								ipc.send('enter-full-screen');
+								ipcRenderer.send('enter-full-screen');
 							}
 						}
 					]
@@ -197,7 +197,7 @@ module.exports = {
 			      {
 			        label: 'Quit',
 			        accelerator: 'Command+Q',
-			        click: function() { ipc.send('close-main-window'); }
+			        click: function() { ipcRenderer.send('close-main-window'); }
 			      },
 			    ]
 			  });

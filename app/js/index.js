@@ -3,9 +3,9 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
-var remote = require('remote');
-var dialog = remote.require('dialog');
-var ipc = require('ipc');
+var remote = require('electron').remote;
+const { dialog } = require('electron').remote;
+var ipcRenderer = require('electron').ipcRenderer;
 
 var fileSystem = require('./js/file-system');
 var constants = require('./js/constants');
@@ -55,7 +55,7 @@ var showImage = function(index) {
 	var statsText = (index + 1) + ' / ' + imageFiles.length;
 	$directoryStats.text(statsText);
 
-	ipc.send('image-changed', currentImageFile);
+	ipcRenderer.send('image-changed', currentImageFile);
 };
 
 var onPreviousClick = function() {
@@ -88,7 +88,7 @@ fullscreenButton.addEventListener("dblclick", toggleFullScreen, false);
 
 function toggleFullScreen() {
 	//console.log('double click...');
-	ipc.send('toggle-full-screen');
+	ipcRenderer.send('toggle-full-screen');
 }
 
 var _loadDir = function(dir, fileName) {
@@ -179,6 +179,7 @@ $rotateRight.click(function() {
 
 // Initialize the app
 var initialize = function() {
+	console.log('what?');
 	var appMenu = require('./js/app-menu'); 
 	appMenu.initialize({
 		onOpen: onOpen,
@@ -189,7 +190,9 @@ var initialize = function() {
 	// no files selected
 	toggleButtons(false);
 
+	//ipcRenderer.send('log', '$openFile = ' + $openFile);
 	$openFile.click(function() {
+		//ipcRenderer.send('log', 'dialog = ' + dialog);
 		// TODO: Refactor this... code duplication
 		dialog.showOpenDialog({
 			properties: [
@@ -230,7 +233,7 @@ var initialize = function() {
 				break;
 
 			case constants.EscapeKey:
-				ipc.send('exit-full-screen', currentImageFile);
+				ipcRenderer.send('exit-full-screen', currentImageFile);
 				break;
 		}
 	});
