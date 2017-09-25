@@ -87,19 +87,8 @@ var fullscreenButton = document.getElementById("currentImage");
 fullscreenButton.addEventListener("dblclick", toggleFullScreen, false);
 
 function toggleFullScreen() {
-  if (!document.fullscreenElement && !document.webkitFullscreenElement) {  // current working methods
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) {
-      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    }
-  }
+	//console.log('double click...');
+	ipc.send('toggle-full-screen');
 }
 
 var _loadDir = function(dir, fileName) {
@@ -238,6 +227,10 @@ var initialize = function() {
 
 			case constants.DownKey:
 				onRotate(90);
+				break;
+
+			case constants.EscapeKey:
+				ipc.send('exit-full-screen', currentImageFile);
 				break;
 		}
 	});

@@ -139,7 +139,20 @@ module.exports = {
                     }
 			      },
 			    ]
-			  }
+				},
+				{
+					label: 'View',
+					role: 'view',
+					submenu: [
+						{
+							label: 'Enter Full Screen',
+							accelerator: 'CmdOrCtrl+F',
+							click: function() {
+								ipc.send('enter-full-screen');
+							}
+						}
+					]
+				}
 		];
 
 		// for MacOS X

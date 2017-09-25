@@ -16,6 +16,26 @@ ipc.on('image-changed', function(sender, fileName) {
 	mainWindow.setTitle(fileName);
 });
 
+ipc.on('exit-full-screen', function() {
+    if (mainWindow.isFullScreen()) {
+        mainWindow.setFullScreen(false);
+    }
+});
+
+ipc.on('enter-full-screen', function() {
+    if (!mainWindow.isFullScreen()) {
+        mainWindow.setFullScreen(true);
+    }
+});
+
+ipc.on('toggle-full-screen', function() {
+    if (mainWindow.isFullScreen()) {
+        mainWindow.setFullScreen(false);
+    } else {
+        mainWindow.setFullScreen(true);
+    }
+});
+
 app.on('ready', function() {
     mainWindow = new BrowserWindow({
         //frame: false,
