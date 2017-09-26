@@ -1,8 +1,9 @@
-html, body, .container-fluid {
+html, body { /*, .container-fluid {*/
 	height: 100%;
 	width: 100%;
 	background-color: black;
 }
+
 .img-row {
 	height: 90%;
 	display: block;

@@ -1,0 +1,40 @@
+html, body { /*, .container-fluid {*/
+	height: 100%;
+	width: 100%;
+	background-color: black;
+}
+
+.div-image
+{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+    flex-direction: column;
+}
+
+.div-center-container
+{
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex: 8; 
+    height: 100%
+}
+
+#currentImage 
+{
+    height: 100%; 
+    width: 100%; 
+    object-fit: contain; 
+    padding: 10px;
+}
+
+.controls-holder
+{
+    flex: 1; 
+    display: flex; 
+    justify-content:flex-end; 
+    align-items: flex-end; 
+    padding-bottom: 10px;
+}
