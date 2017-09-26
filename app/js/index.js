@@ -58,7 +58,15 @@ var showImage = function(index) {
 	ipcRenderer.send('image-changed', currentImageFile);
 };
 
+var hasImages = function() {
+	return imageFiles && imageFiles.length > 0;
+}
+
 var onPreviousClick = function() {
+	if(!hasImages()) {
+		return;
+	}
+
 	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId > 0) {
 		showImage(--currentImageId);
@@ -71,6 +79,10 @@ var onPreviousClick = function() {
 $previous.click(onPreviousClick);
 
 var onNextClick = function() {
+	if(!hasImages()) {
+		return;
+	}
+
 	var currentImageId = $currentImage.data('currentIndex');
 	if(currentImageId + 1 < imageFiles.length) {
 		showImage(++currentImageId);
@@ -149,6 +161,11 @@ var getCurrentFile = function() {
 };
 
 var setRotateDegrees = function(deg) {
+	if (!currentImage.src) {
+		// nothing to rotate
+		return;
+	}
+
 	$currentImage.css({
 		 '-webkit-transform' : 'rotate('+deg+'deg)',
 	     '-moz-transform' : 'rotate('+deg+'deg)',  
@@ -179,7 +196,6 @@ $rotateRight.click(function() {
 
 // Initialize the app
 var initialize = function() {
-	console.log('what?');
 	var appMenu = require('./js/app-menu'); 
 	appMenu.initialize({
 		onOpen: onOpen,
