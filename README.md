@@ -2,6 +2,29 @@
 
 A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Linux. It provides an easy interface to browse a directory of images using the left and right keyboard buttons.
 
+# Why use the Image Viewer?
+
+- Blazingly fast
+- Loads a directory of images in a second
+- Let's you manipulate image with the keyboard - next,previous,rotate,copy,delete
+- Eeasily extendable - new functionality can be added at any time
+- Supports all image files a browser does
+- Runs cross-platform. Mainly useful for OS X though.
+
+# Features by version of Addition
+
+- v1.1.0 - What's New?
+  - Improve UI to center the content of the images better
+  - Add rotate to clockwise/anti-clockwise with Up and Down arrows
+  - Add Full Screen in the View or CmdOrCtrl+F
+  - Exit Full Screen with ESC key
+- v1.0.0
+  - Open a Directory and browse it's images
+  - Open an Image File and browse the images inside the same directory
+  - Fast navigation through the images via Left/Right keyboard buttons
+  - Rotate an image clockwise/anti-clockwise (Up-Arrow/Down-Arrow)
+  - Save/Move the image to a new location
+
 # Preview
 
 - OS X:
@@ -15,14 +38,6 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 - Linux:
 
 ![alt tag](http://i.imgur.com/KXlmv3o.png)
-
-# Features
-
-- Open a Directory and browse it's images
-- Open an Image File and browse the images inside the same directory
-- Fast navigation through the images via Left/Right keyboard buttons
-- Rotate an image clockwise/anti-clockwise (Up-Arrow/Down-Arrow)
-- Save/Move the image to a new location
 
 # Installer
 
