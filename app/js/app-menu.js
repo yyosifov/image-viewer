@@ -2,7 +2,8 @@
 
 var path = require('path');
 var constants = require('./constants');
-const { remote, dialog, ipcRenderer } = require('electron');
+const { remote, ipcRenderer } = require('electron');
+const { dialog } = require('electron').remote;
 const { Menu, MenuItem } = remote;
 //var ipc = require('ipc'); // used for close-window and other commands
 
@@ -43,7 +44,7 @@ module.exports = {
 						label: 'Open',
 						accelerator: 'CmdOrCtrl+O',
 						click: function() {
-							console.log('clicked open');
+							ipcRenderer.send('log', 'clicked open ' + dialog);
 							dialog.showOpenDialog({
 									properties: [
 										'openFile',
@@ -222,6 +223,6 @@ module.exports = {
 		var template = this.getMenuTemplate();
 		var menu = Menu.buildFromTemplate(template);
 
-		Menu.setApplicationMenu(menu);		
+		Menu.setApplicationMenu(menu);
 	}
 };
