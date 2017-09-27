@@ -12,20 +12,6 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 - Supports all image files a browser does
 - Runs cross-platform. Mainly useful for OS X though.
 
-# Features by version
-
-- v1.1.0 - What's New?
-  - Improve UI to center the content of the images better
-  - Add rotate to clockwise/anti-clockwise with Up and Down arrows
-  - Add Full Screen in the View or CmdOrCtrl+F
-  - Exit Full Screen with ESC key
-- v1.0.0
-  - Open a Directory and browse it's images
-  - Open an Image File and browse the images inside the same directory
-  - Fast navigation through the images via Left/Right keyboard buttons
-  - Rotate an image clockwise/anti-clockwise (Up-Arrow/Down-Arrow)
-  - Save/Move the image to a new location
-
 # Preview
 
 - OS X:
@@ -39,6 +25,21 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 - Linux:
 
 ![alt tag](http://i.imgur.com/KXlmv3o.png)
+
+
+# Features by version
+
+- v1.1.0 - What's New?
+  - Improve UI to center the content of the images better
+  - Add rotate to clockwise/anti-clockwise with Up and Down arrows
+  - Add Full Screen in the View or CmdOrCtrl+F
+  - Exit Full Screen with ESC key
+- v1.0.0
+  - Open a Directory and browse it's images
+  - Open an Image File and browse the images inside the same directory
+  - Fast navigation through the images via Left/Right keyboard buttons
+  - Rotate an image clockwise/anti-clockwise (Up-Arrow/Down-Arrow)
+  - Save/Move the image to a new location
 
 # Installer
 
