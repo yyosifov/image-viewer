@@ -6,7 +6,7 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 
 - OS X:
 
-![alt tag](http://i.imgur.com/JM0GaFJ.jpg)
+![alt tag](https://imgur.com/a/yk4Dh)
 
 - Windows:
 
@@ -21,7 +21,7 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 - Open a Directory and browse it's images
 - Open an Image File and browse the images inside the same directory
 - Fast navigation through the images via Left/Right keyboard buttons
-- Rotate an image clockwise/anti-clockwise
+- Rotate an image clockwise/anti-clockwise (Up-Arrow/Down-Arrow)
 - Save/Move the image to a new location
 
 # Installer
@@ -29,9 +29,7 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 Download and install the Image Viewer with simple one-click installation. Choose from the platforms below:
 
 - OS X:
-[Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/osx/Image%20Viewer.dmg)
-- Windows:
-[Image Viewer Setup.exe](https://github.com/yyosifov/image-viewer/raw/master/dist/win/Image%20Viewer%20Setup.exe)
+[Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/Image Viewer-1.1.0.dmg)
 
 # How to run manually
 
@@ -44,6 +42,12 @@ Download and install the Image Viewer with simple one-click installation. Choose
 - Run the app
 
 > npm start
+
+# To create an installer for your platform
+
+- Run
+
+> npm run-script dist
 
 <h2 id="contributors">Contributors</h2>
 
