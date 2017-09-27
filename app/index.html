@@ -1,47 +1,42 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Image Viewer</title>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Image Viewer</title>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="style/main.css">
+	<link rel="stylesheet" href="style/global.css">
 </head>
+
 <body>
+	<div class="div-image">
+			<div class='div-center-container'>
+				<button id="open-file"  type="button" class="btn btn-secondary-outline btn-lg">Open</button>
 
-<div class="container-fluid">
-	<div class="row img-row">
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-10 height100">
-			<div class="img-div">
-				<img id="currentImage" class="img-thumb center" />
-
-				<button id="open-file" style="position: relative; left: 35%; top: 40%;" type="button" class="btn btn-secondary-outline btn-lg">Open</button>
+				<img id="currentImage" />
 			</div>
-		</div>
-		<div class="col-md-1">
-		</div>
-	</div>
-	<div class="row" class="control-row" id="control-panel">
-		<div class="col-md-12 height100 control-buttons text-center">
-				<div>
-					<button type="button" class="btn btn-primary" id="rotate-left"><i class="fa fa-undo fa-1x"></i></button>
-					<button type="button" class="btn btn-success" id="previous"><i class="fa fa-arrow-circle-left fa-1x"></i></button>
-					<label style="margin-left: 5px; margin-right: 5px;" id="directoryStats"></label>
-					<button type="button" class="btn btn-success" id="next"><i class="fa fa-arrow-circle-right fa-1x"></i></button>
-					<button type="button" class="btn btn-primary" id="rotate-right"><i class="fa fa-repeat fa-1x"></i></button>
+
+			<div id="control-panel">
+					<div class="control-buttons text-center">
+						<div>
+							<button type="button" class="btn btn-primary" id="rotate-left"><i class="fa fa-undo fa-1x"></i></button>
+							<button type="button" class="btn btn-success" id="previous"><i class="fa fa-arrow-circle-left fa-1x"></i></button>
+							<label style="margin-left: 5px; margin-right: 5px; color: white;" id="directoryStats"></label>
+							<button type="button" class="btn btn-success" id="next"><i class="fa fa-arrow-circle-right fa-1x"></i></button>
+							<button type="button" class="btn btn-primary" id="rotate-right"><i class="fa fa-repeat fa-1x"></i></button>
+						</div>
+					</div>
 				</div>
-		</div>
 	</div>
-</div>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" 
-	onload="window.$ = window.jQuery = module.exports;">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" onload="window.$ = window.jQuery = module.exports;">
+
 	</script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 	<script src="js/index.js"></script>
 </body>
+
 </html>
