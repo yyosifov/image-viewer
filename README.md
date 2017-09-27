@@ -2,7 +2,8 @@
 
 A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Linux. It provides an easy interface to browse a directory of images using the left and right keyboard buttons.
 
-# Why use the Image Viewer?
+
+# Why try the Image Viewer?
 
 - Blazingly fast
 - Loads a directory of images in a second
@@ -11,7 +12,7 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 - Supports all image files a browser does
 - Runs cross-platform. Mainly useful for OS X though.
 
-# Features by version of Addition
+# Features by version
 
 - v1.1.0 - What's New?
   - Improve UI to center the content of the images better
