@@ -18,7 +18,9 @@ var $currentImage = $('#currentImage'),
 	$openFile = $('#open-file'),
 	$controlPanel = $('#control-panel'),
 	$rotateLeft = $('#rotate-left'),
-	$rotateRight = $('#rotate-right');
+	$rotateRight = $('#rotate-right'),
+	$divCenterImage = $('#div-center-container'),
+	containerDimensions = {};
 
 // the list of all retrieved files
 var imageFiles = [],
@@ -43,6 +45,14 @@ var showImage = function(index) {
 	toggleButtons(true);
 
 	setRotateDegrees(0);
+	// clear the CSS 
+	$currentImage.css({
+		height: '100%',
+		width: '100%'
+	});
+	// clean up
+	containerDimensions = {};
+
 	$currentImage.data('currentIndex', index);
 	$currentImage.attr('src', imageFiles[index]);
 	currentImageFile = imageFiles[index];
@@ -160,12 +170,61 @@ var getCurrentFile = function() {
 	return currentImageFile;
 };
 
+var getPreviousDegrees = function() {
+	var deg = $currentImage.data('rotateDegree') || 0;
+	return deg;
+};
+
+var getDimensionIndex = function(deg) {
+	//console.log(`get ${deg}`);
+	return (deg == 0 || Math.abs(deg) == 180) ? 0 : 1;
+}
+
 var setRotateDegrees = function(deg) {
 	if (!currentImage.src) {
 		// nothing to rotate
 		return;
 	}
 
+	const imgHeight = $currentImage.height(),
+		imgWidth = $currentImage.width();
+
+	const containerHeight = $divCenterImage.height(),
+		containerWidth = $divCenterImage.width();
+	//console.log(`imgHeight = ${imgHeight}, imgWidth = ${imgWidth}`);
+
+	const prevDegrees = getPreviousDegrees();
+	const dimensionsIndex = getDimensionIndex(prevDegrees);
+	if(!containerDimensions[dimensionsIndex]) {
+		// persist them
+		containerDimensions[dimensionsIndex] = {
+			height: containerHeight,
+			width: containerWidth
+		};
+
+		//console.log(`set ${dimensionsIndex} in container dimensions: h:` + containerDimensions[dimensionsIndex].height + ' and w:' + containerDimensions[dimensionsIndex].width);
+	}
+
+	const otherIndex = (dimensionsIndex + 1) % 2;
+	if(containerDimensions[otherIndex]) {
+		//console.log('in container dimensions: h:' + containerDimensions[otherIndex].height + ' and w:' + containerDimensions[otherIndex].width);
+		$currentImage.css({
+			height: containerDimensions[otherIndex].height,
+			width: containerDimensions[otherIndex].width
+		});
+	} else {
+		containerDimensions[otherIndex] = {
+			height: containerWidth,
+			width: containerHeight
+		}
+		//console.log(`set ${otherIndex} in container dimensions: h:` + containerDimensions[otherIndex].height + ' and w:' + containerDimensions[otherIndex].width);
+
+		$currentImage.css({
+			height: containerWidth,
+			width: containerHeight
+		});
+	}
+	
 	$currentImage.css({
 		 '-webkit-transform' : 'rotate('+deg+'deg)',
 	     '-moz-transform' : 'rotate('+deg+'deg)',  
@@ -182,6 +241,7 @@ var onRotate = function(rotationDegrees) {
 	// get current degree and rotationDegrees
 	var deg = $currentImage.data('rotateDegree') || 0;
 	deg -= rotationDegrees;
+	deg = deg % 360;
 
 	setRotateDegrees(deg);
 };
