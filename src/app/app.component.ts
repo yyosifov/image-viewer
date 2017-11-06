@@ -11,6 +11,7 @@ export class AppComponent {
   currentImageUrl = '';
 
   onOpen(): void {
+		console.log('on open click');
     dialog.showOpenDialog({
 			properties: [
 				'openFile',

@@ -1,6 +1,6 @@
 <div class="div-image">
   <div id='div-center-container' class='div-center-container'>
-    <button *ngIf="!currentImageUrl"
+    <button *ngIf="!currentImageUrl" (click)="onOpen()"
       id="open-file"  type="button" class="btn btn-secondary-outline btn-lg">Open</button>
 
     <img *ngIf="currentImageUrl" id="currentImage" />

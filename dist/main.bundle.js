@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"div-image\">\n  <div id='div-center-container' class='div-center-container'>\n    <button *ngIf=\"!currentImageUrl\"\n      id=\"open-file\"  type=\"button\" class=\"btn btn-secondary-outline btn-lg\">Open</button>\n\n    <img *ngIf=\"currentImageUrl\" id=\"currentImage\" />\n  </div>\n\n  <div *ngIf=\"currentImageUrl\" id=\"control-panel\">\n      <div class=\"control-buttons text-center\">\n        <div>\n          <button type=\"button\" class=\"btn btn-primary\" id=\"rotate-left\"><i class=\"fa fa-undo fa-1x\"></i></button>\n          <button type=\"button\" class=\"btn btn-success\" id=\"previous\"><i class=\"fa fa-arrow-circle-left fa-1x\"></i></button>\n          <label style=\"margin-left: 5px; margin-right: 5px; color: white;\" id=\"directoryStats\"></label>\n          <button type=\"button\" class=\"btn btn-success\" id=\"next\"><i class=\"fa fa-arrow-circle-right fa-1x\"></i></button>\n          <button type=\"button\" class=\"btn btn-primary\" id=\"rotate-right\"><i class=\"fa fa-repeat fa-1x\"></i></button>\n        </div>\n      </div>\n    </div>\n</div>"
+module.exports = "<div class=\"div-image\">\n  <div id='div-center-container' class='div-center-container'>\n    <button *ngIf=\"!currentImageUrl\" (click)=\"onOpen()\"\n      id=\"open-file\"  type=\"button\" class=\"btn btn-secondary-outline btn-lg\">Open</button>\n\n    <img *ngIf=\"currentImageUrl\" id=\"currentImage\" />\n  </div>\n\n  <div *ngIf=\"currentImageUrl\" id=\"control-panel\">\n      <div class=\"control-buttons text-center\">\n        <div>\n          <button type=\"button\" class=\"btn btn-primary\" id=\"rotate-left\"><i class=\"fa fa-undo fa-1x\"></i></button>\n          <button type=\"button\" class=\"btn btn-success\" id=\"previous\"><i class=\"fa fa-arrow-circle-left fa-1x\"></i></button>\n          <label style=\"margin-left: 5px; margin-right: 5px; color: white;\" id=\"directoryStats\"></label>\n          <button type=\"button\" class=\"btn btn-success\" id=\"next\"><i class=\"fa fa-arrow-circle-right fa-1x\"></i></button>\n          <button type=\"button\" class=\"btn btn-primary\" id=\"rotate-right\"><i class=\"fa fa-repeat fa-1x\"></i></button>\n        </div>\n      </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -62,6 +62,7 @@ var AppComponent = (function () {
         this.currentImageUrl = '';
     }
     AppComponent.prototype.onOpen = function () {
+        console.log('on open click');
         dialog.showOpenDialog({
             properties: [
                 'openFile',
