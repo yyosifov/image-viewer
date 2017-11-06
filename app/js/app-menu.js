@@ -140,7 +140,7 @@ module.exports = {
               }
 			      },
 			    ]
-				},
+			}/*,
 				{
 					label: 'View',
 					role: 'view',
@@ -153,7 +153,7 @@ module.exports = {
 							}
 						}
 					]
-				}
+				}*/
 		];
 
 		// for MacOS X
@@ -223,6 +223,6 @@ module.exports = {
 		var template = this.getMenuTemplate();
 		var menu = Menu.buildFromTemplate(template);
 
-		Menu.setApplicationMenu(menu);
+		//Menu.setApplicationMenu(menu);
 	}
 };
