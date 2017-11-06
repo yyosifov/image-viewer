@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 const { app, BrowserWindow } = require('electron');
 
@@ -86,3 +86,4 @@ app.on('activate', function () {
     }
   });
 
+*/
