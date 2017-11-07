@@ -66,6 +66,16 @@ Download and install the Image Viewer with simple one-click installation. Choose
 
 > npm run-script dist
 
+# Since upgrade to Angular 4:
+
+- run webpack with watch
+
+> npm run watch
+
+- start electron
+
+> npm run electron
+
 <h2 id="contributors">Contributors</h2>
 
 The following is a list of all the people that have helped build the Image-Viewer. Thanks for your contributions!

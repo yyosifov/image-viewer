@@ -3,7 +3,7 @@
     <button *ngIf="!currentImageUrl" (click)="onOpen()"
       id="open-file"  type="button" class="btn btn-secondary-outline btn-lg">Open</button>
 
-    <img *ngIf="currentImageUrl" id="currentImage" />
+    <img *ngIf="currentImageUrl" src="{{ currentImageUrl }}" id="currentImage" />
   </div>
 
   <div *ngIf="currentImageUrl" id="control-panel">

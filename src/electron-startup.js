@@ -1,8 +1,4 @@
-console.log('ehooo');
-
 const { app, BrowserWindow } = require('electron');
-
-console.log('in main.js');
 
 var mainWindow = null;
 
@@ -63,7 +59,8 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  //mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL('http://localhost:4200/');
   //mainWindow.loadURL('file://www.dir.bg');
 
   // cleanup
@@ -73,7 +70,6 @@ function createWindow() {
 }
 
 app.on('ready', function () {
-  console.log('on ready');
   createWindow();
 });
 

@@ -10,7 +10,7 @@
           "windows": {
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
           },
-          "program": "${workspaceRoot}/dist/electronStartup.bundle.js",
+          "program": "${workspaceRoot}/out/electron-startup.js",
           "protocol": "legacy"
         },
         {
@@ -22,7 +22,7 @@
             "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
           },
           "runtimeArgs": [
-            "${workspaceRoot}/dist/electronStartup.bundle.js",
+            "${workspaceRoot}/out/electron-startup.js",
             "--remote-debugging-port=9222"
           ],
           "webRoot": "${workspaceRoot}"
