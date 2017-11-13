@@ -41,6 +41,13 @@ export class AppComponent {
 		if (this.selectedImageIndex === -1) {
 			this.selectedImageIndex = 0;
 		}
+
+		if (this.selectedImageIndex < this.imageFiles.length) {
+			this.showImage(this.selectedImageIndex);
+		}
+		else {
+			alert('No image files found in this directory.');
+		}
 	}
 
 	onFileOpen(filePath: string) {
@@ -64,32 +71,29 @@ export class AppComponent {
 	}
 
 	setRotateDegrees(deg) {
-		if(!this.currentImageUrl) {
+		if (!this.currentImageUrl) {
 			return;
 		}
-	
-		const imgHeight = this.currentImageRef.nativeElement.height,
-			imgWidth = this.currentImageRef.nativeElement.height.width;
-	
+
 		const containerHeight = this.centerContainer.nativeElement.height,
 			containerWidth = this.centerContainer.nativeElement.width;
 		//console.log(`imgHeight = ${imgHeight}, imgWidth = ${imgWidth}`);
-	
+
 		const prevDegrees = this.rotateDegree;
 		const dimensionsIndex = this.getDimensionIndex(prevDegrees);
-		if(!this.containerDimensions[dimensionsIndex]) {
+		if (!this.containerDimensions[dimensionsIndex]) {
 			// persist them
 			this.containerDimensions[dimensionsIndex] = {
 				height: containerHeight,
 				width: containerWidth
 			};
-	
+
 			//console.log(`set ${dimensionsIndex} in container dimensions: h:` + containerDimensions[dimensionsIndex].height + ' and w:' + containerDimensions[dimensionsIndex].width);
 		}
-	
+
 		let css = {};
 		const otherIndex = (dimensionsIndex + 1) % 2;
-		if(this.containerDimensions[otherIndex]) {
+		if (this.containerDimensions[otherIndex]) {
 			//console.log('in container dimensions: h:' + containerDimensions[otherIndex].height + ' and w:' + containerDimensions[otherIndex].width);
 			css = {
 				height: this.containerDimensions[otherIndex].height,
@@ -101,24 +105,24 @@ export class AppComponent {
 				width: containerHeight
 			}
 			//console.log(`set ${otherIndex} in container dimensions: h:` + containerDimensions[otherIndex].height + ' and w:' + containerDimensions[otherIndex].width);
-	
+
 			css = {
 				height: containerWidth,
 				width: containerHeight
 			};
 		}
-		
-		css = _.merge({}, css, {
-			'-webkit-transform' : 'rotate('+deg+'deg)',
-				'-moz-transform' : 'rotate('+deg+'deg)',  
-				 '-ms-transform' : 'rotate('+deg+'deg)',  
-					'-o-transform' : 'rotate('+deg+'deg)',  
-						 'transform' : 'rotate('+deg+'deg)',  
-									'zoom' : 1
-	 });
 
-	 this.rotateDegree = deg;
-	 this.currentImageCss = css;
+		css = _.merge({}, css, {
+			'-webkit-transform': 'rotate(' + deg + 'deg)',
+			'-moz-transform': 'rotate(' + deg + 'deg)',
+			'-ms-transform': 'rotate(' + deg + 'deg)',
+			'-o-transform': 'rotate(' + deg + 'deg)',
+			'transform': 'rotate(' + deg + 'deg)',
+			'zoom': 1
+		});
+
+		this.rotateDegree = deg;
+		this.currentImageCss = css;
 	};
 
 	onRotate(rotationDegrees) {
@@ -126,7 +130,7 @@ export class AppComponent {
 		var deg = this.rotateDegree;
 		deg -= rotationDegrees;
 		deg = deg % 360;
-	
+
 		this.setRotateDegrees(deg);
 	};
 
@@ -169,11 +173,11 @@ export class AppComponent {
 	};
 
 	onNextClick() {
-		if(!this.hasImages()) {
+		if (!this.hasImages()) {
 			return;
 		}
-	
-		if(this.selectedImageIndex + 1 < this.imageFiles.length) {
+
+		if (this.selectedImageIndex + 1 < this.imageFiles.length) {
 			this.showImage(++this.selectedImageIndex);
 		} else {
 			// we're at the end - next is the beginning
@@ -182,17 +186,19 @@ export class AppComponent {
 	}
 
 	onFileDelete() {
-		// file has been deleted, show previous or next...
-		if(this.selectedImageIndex > -1) {
-			this.imageFiles.splice(this.selectedImageIndex, 1);
-		}
+		this.zone.run(() => {
+			// file has been deleted, show previous or next...
+			if (this.selectedImageIndex > -1) {
+				this.imageFiles.splice(this.selectedImageIndex, 1);
+			}
 
-		if(this.selectedImageIndex === this.imageFiles.length) this.selectedImageIndex--;
-		if(this.selectedImageIndex < 0) {
-			this.currentImageUrl = '';
-		} else {
-			this.showImage(this.selectedImageIndex);
-		}
+			if (this.selectedImageIndex === this.imageFiles.length) this.selectedImageIndex--;
+			if (this.selectedImageIndex < 0) {
+				this.currentImageUrl = '';
+			} else {
+				this.showImage(this.selectedImageIndex);
+			}
+		});
 	};
 
 	onOpen(): void {
@@ -231,7 +237,7 @@ export class AppComponent {
 
 	@HostListener('window:keydown', ['$event'])
 	handleKeyDown(ev: KeyboardEvent) {
-		switch(ev.keyCode) {
+		switch (ev.keyCode) {
 			case this.constants.LeftKey:
 				this.onPreviousClick();
 				break;
@@ -259,7 +265,7 @@ export class AppComponent {
 		appMenu.initialize({
 			onOpen: this.onOpen.bind(this),
 			onFileDelete: this.onFileDelete.bind(this),
-			getCurrentFile: () => { return this.currentImageUrl }
+			getCurrentFile: () => { return this.imageFiles[this.selectedImageIndex]; }
 		});
 	}
 }
