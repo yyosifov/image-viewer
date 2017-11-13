@@ -21,7 +21,7 @@ function copyFile(source, target, cb) {
     done(err);
   });
   wr.on("close", function(ex) {
-    done();
+    done(ex);
   });
   rd.pipe(wr);
 
@@ -163,7 +163,8 @@ export class AppMenu {
 
 		// for MacOS X
 		if (process.platform == 'darwin') {
-			  var name = 'Image Viewer';
+				var name = 'Image Viewer';
+				/*
 			  template.unshift({
 					label: name,
 					role: '',
@@ -208,7 +209,8 @@ export class AppMenu {
 							role: 'exit'
 			      },
 			    ]
-			  });
+				});
+				*/
 				// Window menu.
 				/*
 			  template[2].submenu.push(
