@@ -258,7 +258,7 @@ export class AppComponent {
 				ipcRenderer.send('exit-full-screen', this.currentImageUrl);
 				break;
 		}
-	});
+	};
 
 	ngOnInit() {
 		var appMenu = new AppMenu();

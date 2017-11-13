@@ -29,7 +29,9 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 
 # Features by version
 
-- v1.1.0 - What's New?
+- v1.2.0
+  - Migrate Project to Angular 4 + TypeScript + Electron (needs refactoring now)
+- v1.1.0
   - Improve UI to center the content of the images better
   - Add rotate to clockwise/anti-clockwise with Up and Down arrows
   - Add Full Screen in the View or CmdOrCtrl+F
@@ -68,9 +70,9 @@ Download and install the Image Viewer with simple one-click installation. Choose
 
 # Since upgrade to Angular 4:
 
-- run webpack with watch
+- run webpack-dev-server with watch
 
-> npm run watch
+> npm run start
 
 - start electron
 

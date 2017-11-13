@@ -165,7 +165,8 @@ export class AppMenu {
 		if (process.platform == 'darwin') {
 			  var name = 'Image Viewer';
 			  template.unshift({
-			    label: name,
+					label: name,
+					role: '',
 			    submenu: [
 			      {
 			        label: 'About ' + name,
@@ -203,20 +204,22 @@ export class AppMenu {
 			      {
 			        label: 'Quit',
 			        accelerator: 'Command+Q',
-			        click: function() { ipcRenderer.send('close-main-window'); }
+							click: function() { ipcRenderer.send('close-main-window'); },
+							role: 'exit'
 			      },
 			    ]
 			  });
-			  // Window menu.
+				// Window menu.
+				/*
 			  template[2].submenu.push(
 			    {
 			      type: 'separator'
 			    },
 			    {
 			      label: 'Bring All to Front',
-			      role: 'front'
-			    }
-			  );
+						role: 'front'
+					}
+			  );*/
 			}
 
 		return template;
