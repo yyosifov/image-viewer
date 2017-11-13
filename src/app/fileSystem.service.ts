@@ -24,7 +24,7 @@ export class FileSystemService {
         });
         
         var imageFiles = fullFilePaths;
-        //var imageFiles = _.filter(fullFilePaths, utilities.isSupportedImageFile);
+        var imageFiles = _.filter(fullFilePaths, this.utilities.isSupportedImageFile);
         
         return imageFiles;
     }
