@@ -1,10 +1,11 @@
 'use strict';
 
 var path = require('path');
-var constants = require('./constants');
+import { Constants } from './constants';
 const { remote, ipcRenderer } = require('electron');
 const { dialog } = require('electron').remote;
 const { Menu, MenuItem } = remote;
+import * as fs from 'fs';
 //var ipc = require('ipc'); // used for close-window and other commands
 
 //http://stackoverflow.com/questions/11293857/fastest-way-to-copy-file-in-node-js
@@ -32,8 +33,12 @@ function copyFile(source, target, cb) {
   }
 }
 
-module.exports = {
-	getMenuTemplate: function() {
+export class AppMenu {
+    options: any;
+
+    private constants: Constants = new Constants();
+
+	getMenuTemplate() {
 		var self = this;
 
 		var template = [
@@ -53,7 +58,7 @@ module.exports = {
 									filters: [
 										{
 											name: 'Images',
-											extensions: constants.SupportedImageExtensions	
+											extensions: self.constants.SupportedImageExtensions	
 										}
 									]
 								},
@@ -215,9 +220,9 @@ module.exports = {
 			}
 
 		return template;
-	},
+	};
 
-	initialize: function(options) {
+	initialize(options) {
 		this.options = options;
 
 		var template = this.getMenuTemplate();

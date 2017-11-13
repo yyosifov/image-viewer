@@ -8,6 +8,7 @@ import { FileSystemService } from './fileSystem.service';
 import { Constants } from './constants';
 import { HostListener } from '@angular/core';
 import * as _ from 'lodash';
+import { AppMenu } from './app-menu';
 
 @Component({
 	selector: 'app-root',
@@ -180,6 +181,20 @@ export class AppComponent {
 		}
 	}
 
+	onFileDelete() {
+		// file has been deleted, show previous or next...
+		if(this.selectedImageIndex > -1) {
+			this.imageFiles.splice(this.selectedImageIndex, 1);
+		}
+
+		if(this.selectedImageIndex === this.imageFiles.length) this.selectedImageIndex--;
+		if(this.selectedImageIndex < 0) {
+			this.currentImageUrl = '';
+		} else {
+			this.showImage(this.selectedImageIndex);
+		}
+	};
+
 	onOpen(): void {
 		const self = this;
 		dialog.showOpenDialog({
@@ -190,8 +205,7 @@ export class AppComponent {
 			filters: [
 				{
 					name: 'Images',
-					// TODO: constants!!!
-					extensions: ['png', 'jpg', 'jpeg', 'bmp', 'gif', 'tiff'] //constants.SupportedImageExtensions	
+					extensions: self.constants.SupportedImageExtensions
 				}
 			]
 		},
@@ -209,7 +223,11 @@ export class AppComponent {
 				});
 			});
 	}
-	
+
+	toggleFullScreen() {
+		//console.log('double click...');
+		ipcRenderer.send('toggle-full-screen');
+	}
 
 	@HostListener('window:keydown', ['$event'])
 	handleKeyDown(ev: KeyboardEvent) {
@@ -235,4 +253,13 @@ export class AppComponent {
 				break;
 		}
 	});
+
+	ngOnInit() {
+		var appMenu = new AppMenu();
+		appMenu.initialize({
+			onOpen: this.onOpen.bind(this),
+			onFileDelete: this.onFileDelete.bind(this),
+			getCurrentFile: () => { return this.currentImageUrl }
+		});
+	}
 }

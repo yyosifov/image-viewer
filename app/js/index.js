@@ -27,6 +27,7 @@ var imageFiles = [],
 	currentImageFile = '',
 	currentDir = '';
 
+// migrated
 var toggleButtons = function(hasSelectedImage) {
 	// disable buttons?
 	if(hasSelectedImage) {
