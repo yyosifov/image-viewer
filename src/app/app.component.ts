@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 const { dialog } = require('electron').remote;
 var ipcRenderer = require('electron').ipcRenderer;
 import { NgZone } from '@angular/core';
@@ -7,6 +7,7 @@ const path = require('path')
 import { FileSystemService } from './fileSystem.service';
 import { Constants } from './constants';
 import { HostListener } from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'app-root',
@@ -20,6 +21,12 @@ export class AppComponent {
 	imageFiles = [];
 	selectedImageIndex = 0;
 	directoryStatsText = '';
+	currentImageCss = {};
+	rotateDegree = 0;
+	containerDimensions = {};
+
+	@ViewChild('currentImage') currentImageRef: ElementRef;
+	@ViewChild('centerContainer') centerContainer: ElementRef;
 
 	constructor(private zone: NgZone,
 		private fileSystem: FileSystemService,
@@ -43,9 +50,84 @@ export class AppComponent {
 		this._loadDir(dirName, filePath);
 	}
 
+	getCurrentImageCss() {
+		return this.currentImageCss;
+	}
+
 	onDirOpen(dir) {
 		this._loadDir(dir); // convert to string
 	}
+
+	getDimensionIndex(deg) {
+		return (deg == 0 || Math.abs(deg) == 180) ? 0 : 1;
+	}
+
+	setRotateDegrees(deg) {
+		if(!this.currentImageUrl) {
+			return;
+		}
+	
+		const imgHeight = this.currentImageRef.nativeElement.height,
+			imgWidth = this.currentImageRef.nativeElement.height.width;
+	
+		const containerHeight = this.centerContainer.nativeElement.height,
+			containerWidth = this.centerContainer.nativeElement.width;
+		//console.log(`imgHeight = ${imgHeight}, imgWidth = ${imgWidth}`);
+	
+		const prevDegrees = this.rotateDegree;
+		const dimensionsIndex = this.getDimensionIndex(prevDegrees);
+		if(!this.containerDimensions[dimensionsIndex]) {
+			// persist them
+			this.containerDimensions[dimensionsIndex] = {
+				height: containerHeight,
+				width: containerWidth
+			};
+	
+			//console.log(`set ${dimensionsIndex} in container dimensions: h:` + containerDimensions[dimensionsIndex].height + ' and w:' + containerDimensions[dimensionsIndex].width);
+		}
+	
+		let css = {};
+		const otherIndex = (dimensionsIndex + 1) % 2;
+		if(this.containerDimensions[otherIndex]) {
+			//console.log('in container dimensions: h:' + containerDimensions[otherIndex].height + ' and w:' + containerDimensions[otherIndex].width);
+			css = {
+				height: this.containerDimensions[otherIndex].height,
+				width: this.containerDimensions[otherIndex].width
+			};
+		} else {
+			this.containerDimensions[otherIndex] = {
+				height: containerWidth,
+				width: containerHeight
+			}
+			//console.log(`set ${otherIndex} in container dimensions: h:` + containerDimensions[otherIndex].height + ' and w:' + containerDimensions[otherIndex].width);
+	
+			css = {
+				height: containerWidth,
+				width: containerHeight
+			};
+		}
+		
+		css = _.merge({}, css, {
+			'-webkit-transform' : 'rotate('+deg+'deg)',
+				'-moz-transform' : 'rotate('+deg+'deg)',  
+				 '-ms-transform' : 'rotate('+deg+'deg)',  
+					'-o-transform' : 'rotate('+deg+'deg)',  
+						 'transform' : 'rotate('+deg+'deg)',  
+									'zoom' : 1
+	 });
+
+	 this.rotateDegree = deg;
+	 this.currentImageCss = css;
+	};
+
+	onRotate(rotationDegrees) {
+		// get current degree and rotationDegrees
+		var deg = this.rotateDegree;
+		deg -= rotationDegrees;
+		deg = deg % 360;
+	
+		this.setRotateDegrees(deg);
+	};
 
 	hasImages() {
 		return this.imageFiles && this.imageFiles.length > 0;
@@ -53,15 +135,15 @@ export class AppComponent {
 
 	// Shows an image on the page.
 	showImage(index) {
-		//setRotateDegrees(0);
+		this.setRotateDegrees(0);
 		// clear the CSS 
-		/*
-		$currentImage.css({
+		this.currentImageCss = {
 			height: '100%',
 			width: '100%'
-		});
-		*/
+		};
+
 		// clean up
+		this.containerDimensions = {};
 
 		this.selectedImageIndex = index;
 		this.currentImageUrl = 'file:///' + this.imageFiles[index];
@@ -127,6 +209,7 @@ export class AppComponent {
 				});
 			});
 	}
+	
 
 	@HostListener('window:keydown', ['$event'])
 	handleKeyDown(ev: KeyboardEvent) {
@@ -140,11 +223,11 @@ export class AppComponent {
 				break;
 
 			case this.constants.UpKey:
-				//onRotate(-90);
+				this.onRotate(-90);
 				break;
 
 			case this.constants.DownKey:
-				//onRotate(90);
+				this.onRotate(90);
 				break;
 
 			case this.constants.EscapeKey:
