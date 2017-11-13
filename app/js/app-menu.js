@@ -140,7 +140,7 @@ module.exports = {
               }
 			      },
 			    ]
-				},
+			}/*,
 				{
 					label: 'View',
 					role: 'view',
@@ -153,7 +153,7 @@ module.exports = {
 							}
 						}
 					]
-				}
+				}*/
 		];
 
 		// for MacOS X

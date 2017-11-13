@@ -1,0 +1,22 @@
+<div class="div-image">
+  <div id='div-center-container' #centerContainer class='div-center-container'>
+    <button *ngIf="!currentImageUrl" (click)="onOpen()"
+      id="open-file"  type="button" class="btn btn-secondary-outline btn-lg">Open</button>
+
+    <img *ngIf="currentImageUrl" #currentImage 
+      (dblclick)="toggleFullScreen()"
+      [ngStyle]="getCurrentImageCss()" src="{{ currentImageUrl }}" id="currentImage" />
+  </div>
+
+  <div *ngIf="currentImageUrl" id="control-panel">
+      <div class="control-buttons text-center">
+        <div>
+          <button type="button" class="btn btn-primary" id="rotate-left"><i class="fa fa-undo fa-1x"></i></button>
+          <button type="button" class="btn btn-success" (click)="onPreviousClick()" id="previous"><i class="fa fa-arrow-circle-left fa-1x"></i></button>
+          <label style="margin-left: 5px; margin-right: 5px; color: white;" id="directoryStats">{{ directoryStatsText }}</label>
+          <button type="button" class="btn btn-success" (click)="onNextClick()" id="next"><i class="fa fa-arrow-circle-right fa-1x"></i></button>
+          <button type="button" class="btn btn-primary" id="rotate-right"><i class="fa fa-repeat fa-1x"></i></button>
+        </div>
+      </div>
+    </div>
+</div>

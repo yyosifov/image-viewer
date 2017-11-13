@@ -1,10 +1,19 @@
-'use strict';
+/*'use strict';
 
-var electron = require('electron');
-var app = electron.app;
-var BrowserWindow = electron.BrowserWindow;
+const { app, BrowserWindow } = require('electron');
+
+console.log('in main.js');
 
 var mainWindow = null;
+
+let serve;
+const args = process.argv.slice(1);
+serve = args.some(val => val === '--serve');
+console.log(`args = ${args}`);
+if (serve) {
+  require('electron-reload')(__dirname, {});
+  console.log('init electron-reload');
+}
 
 var ipcMain = require('electron').ipcMain
 
@@ -41,14 +50,40 @@ ipcMain.on('toggle-full-screen', function() {
     }
 });
 
-app.on('ready', function() {
+function createWindow() {
     mainWindow = new BrowserWindow({
         //frame: false,
         resizable: true,
         height: 600,
-        width: 800
+        width: 800,
+        webPreferences: {
+            webSecurity: false
+        }
     });
 
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+
+    // cleanup
+    mainWindow.on('closed', function () {
+        mainWindow = null;
+    });
+}
+
+app.on('ready', function() {
+    createWindow();
 });
 
+app.on('window-all-closed', function () {
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+});
+
+app.on('activate', function () {
+    // macOS specific close process
+    if (mainWindow === null) {
+      createWindow();
+    }
+  });
+
+*/
