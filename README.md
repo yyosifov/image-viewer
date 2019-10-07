@@ -48,7 +48,7 @@ A cross-platform Image Viewer based on Electron. It runs on OS X, Windows and Li
 Download and install the Image Viewer with simple one-click installation. Choose from the platforms below:
 
 - OS X:
-[Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/Image Viewer-1.1.0.dmg)
+[Image Viewer.dmg](https://github.com/yyosifov/image-viewer/raw/master/dist/Image%20Viewer-1.1.0.dmg)
 
 # How to run manually
 
