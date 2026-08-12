@@ -60,7 +60,8 @@ export class AppMenu {
 											name: 'Images',
 											extensions: self.constants.SupportedImageExtensions	
 										}
-									]
+									],
+									defaultPath: remote.app.getPath('home')
 								},
 								function(fileName) {
 									if(fileName && self.options.onOpen) {
