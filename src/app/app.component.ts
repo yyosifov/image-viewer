@@ -213,7 +213,8 @@ export class AppComponent {
 					name: 'Images',
 					extensions: self.constants.SupportedImageExtensions
 				}
-			]
+			],
+			defaultPath: require('electron').remote.app.getPath('home')
 		},
 			function (fileName) {
 				self.zone.run(() => {
